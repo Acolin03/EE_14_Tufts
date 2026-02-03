@@ -1,0 +1,74 @@
+// Write a C function called set_registers() which does the following:
+// (a) Set the value at 0x40000040 to the bit pattern 11110000000011011111101011001110.
+// (b) Set 0x40000044 to the bit pattern 10101010101010101010101010101010.
+// (c) Clear the bottom 8 bits of 0x40000048 (i.e., set to 0). Do not modify any other bits.
+// (d) Clear the top 8 bits of 0x4000004c. Do not modify any other bits.
+// (e) Clear bits 11:9 (i.e., bits 11, 10, and 9) of 0x40000050. Do not modify any other bits.
+// (f) Set bits 7:4 of 0x40000054 to 1. Do not modify any other bits.
+// (g) Set bit 12 of 0x40000058 to 1. Do not modify any other bits.
+// (h) Clear every other bit in 0x4000005c to 0 (bits 31, 29, 27, etc). Do not modify the other bits.
+// (i) Set bits 21:20 in 0x40000060 to 01 (i.e., bit 21 is 0, bit 20 is 1). Do not modify the other bits.
+// (j) Set bits 6:0 in 0x40000064 to the decimal value 53. Do not modify any other bits.
+// (k) Set bits 31:24 in 0x40000068 to the decimal value 99. Do not modify any other bits.
+// (l) Toggle bit 15 in 0x4000006c. Do not modify any other bits
+
+#include <stdint.h>
+
+void set_registers() {
+    volatile uint32_t* a = (uint32_t*)0x40000040;
+    volatile uint32_t* b = (uint32_t*)0x40000044;
+    volatile uint32_t* c = (uint32_t*)0x40000048;
+    volatile uint32_t* d = (uint32_t*)0x4000004C;
+    volatile uint32_t* e = (uint32_t*)0x40000050;
+    volatile uint32_t* f = (uint32_t*)0x40000054;
+    volatile uint32_t* g = (uint32_t*)0x40000058;
+    volatile uint32_t* h = (uint32_t*)0x4000005C;
+    volatile uint32_t* i = (uint32_t*)0x40000060;
+    volatile uint32_t* j = (uint32_t*)0x40000064;
+    volatile uint32_t* k = (uint32_t*)0x40000068;
+    volatile uint32_t* l = (uint32_t*)0x4000006C;
+
+    // (a)
+    *a = 0xF00DFACE; // translated 
+
+    // (b)
+    *b = 0xAAAAAAAA; // 1010 repeated
+
+    // (c)
+    *c &= ~(0xFF); // Clear bottom 8 bits with 1s
+
+    // (d)
+    *d &= ~(0xFF << 24); // Clear top 8 bits with 1s
+
+    // (e)
+    *e &= ~(0b111 << 9); // Clear bits 11:9
+
+    // (f)
+    *f |= (0b1111 << 4); // Set bits 7:4 to 1
+
+    // (g)
+    *g |= (0b1 << 12); // Set bit 12 to 1
+
+    // (h)
+    *h &= 0x55555555; // 0101 repeated 
+
+    // (i)
+    *i &= ~(0b11 << 20); // Clear bits 21:20
+    *i |= (0b01 << 20); // Set bits 21:20 to 01
+    // (j)
+    *j &= ~(0b1111111); // Clear bits 6:0
+    *j |= 53; // Set bits 6:0 to decimal 53
+
+    // (k)
+    *k &= ~(0xFF << 24); // Clear bits 31:24
+    *k |= (99 << 24); // Set bits 31:24 to decimal 99
+    // (l)
+    *l ^= (0b1 << 15); // Toggle bit 15
+
+}
+
+
+int main() {    
+    set_registers();
+    return 0; 
+}
