@@ -11,7 +11,9 @@
 // Pins are in our Nucleo list
 #define NUM_PINS 22 // A0-A7, D0-D13
 
-// Mapping of Nucleo pin number to GPIO port
+/**
+ * @brief This function maps the Nucleo pin number to GPIO port
+ */
 static GPIO_TypeDef * g_GPIO_port[D13+1] = {
   GPIOA,GPIOA,GPIOA,GPIOA,  // A0=PA0,A1=PA1,A2=PA3,A3=PA4
   GPIOA,GPIOA,GPIOA,GPIOA,  // A4=PA5,A5=PA6,A6=PA7,A7=PA2
@@ -21,9 +23,9 @@ static GPIO_TypeDef * g_GPIO_port[D13+1] = {
   GPIOB,GPIOB               // D12=PB4,D13=PB3.
 };
 
-// Mapping of Nucleo pin number to GPIO pin
-// Using this plust g_GPIO_port[] above, we can translate a Nucleo pin name into
-// the chip's actual GPIO port and pin number.
+/**
+ * @brief This function maps the Nucleo pin number to GPIO pin, using this function and g_GPIO_port[] from above, we can translate a Nucleo pin name into the chip's actual GPIO port and pin number.
+ */
 static uint8_t g_GPIO_pin[D13+1] = {
   0,1,3,4,    // A0=PA0,A1=PA1,A2=PA3,A3=PA4
   5,6,7,2,    // A4=PA5,A5=PA6,A6=PA7,A7=PA2
