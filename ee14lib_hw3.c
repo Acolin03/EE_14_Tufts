@@ -35,7 +35,6 @@ static uint8_t g_GPIO_pin[D13+1] = {
   4,3         // D12=PB4,D13=PB3.
 };
 
-
 /**
  * @brief A pointer to the GPIO port to enable (ex. GPIOA, GPIOB, etc.)
  */
@@ -48,7 +47,6 @@ static void gpio_enable_port(GPIO_TypeDef *gpio) {
     RCC->AHB2ENR |= field; // Turn on the GPIO clock
     (void)RCC->AHB2ENR; // Dummy read to ensure clock is stable
 }
-
 
 /**
  * @brief This function configures the direction of the GPIO pin. This way the Nucleo pin can be used as an input or output. The direction parameter should be either INPUT or OUTPUT.
@@ -102,7 +100,6 @@ EE14Lib_Err gpio_config_pullup(EE14Lib_Pin pin, uint32_t mode)
 
     return EE14Lib_Err_OK;
 }
-
 
 /**
  * @brief Only if the pin is an output, write a value to the pin that will set the state of the signal. The value parameter should be either 0 or 1.
